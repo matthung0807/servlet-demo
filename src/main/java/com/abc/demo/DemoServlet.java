@@ -1,7 +1,8 @@
 package com.abc.demo;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -9,10 +10,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
-
-import com.abc.demo.dto.ApiResposne;
-import com.abc.demo.dto.EmployeeDto;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class DemoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
@@ -30,15 +27,23 @@ public class DemoServlet extends HttpServlet {
             return;
         }
 
-        ObjectMapper objectMapper = new ObjectMapper();
-        String jsonString = "";
-        PrintWriter writer = response.getWriter();
+        if ("/download".equalsIgnoreCase(pathInfo)) {
+            response.setContentType("image/png");
+            response.setHeader("Content-disposition", "attachment; filename=image.png");
 
-        if ("/employee".equalsIgnoreCase(pathInfo)) {
-            EmployeeDto employeeDto = new EmployeeDto(1L, "john", "john@abc.com", 28);
-            ApiResposne apiResposne = new ApiResposne("success", employeeDto);
-            jsonString = objectMapper.writeValueAsString(apiResposne);
-            writer.write(jsonString);
+            ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+            InputStream is = classLoader.getResourceAsStream("imgs/duke.png");
+            OutputStream os = response.getOutputStream();
+            
+            byte[] buffer = new byte[1024];
+            while ((is.read(buffer)) != -1) {
+                os.write(buffer);
+            }
+            
+            os.flush();
+            os.close();
+            is.close();
+            
             return;
         }
 
