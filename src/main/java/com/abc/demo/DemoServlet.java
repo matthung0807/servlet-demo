@@ -28,9 +28,6 @@ public class DemoServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
-        response.setContentType("application/json;charset=UTF-8");
-        response.setCharacterEncoding("UTF-8");
-        
         String pathInfo = request.getPathInfo();
 
         if (StringUtils.isEmpty(pathInfo)) {
