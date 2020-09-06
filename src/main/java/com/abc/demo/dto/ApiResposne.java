@@ -1,9 +1,15 @@
 package com.abc.demo.dto;
 
-public class ApiResposne {
+import java.io.Serializable;
 
+public class ApiResposne implements Serializable {
+    private static final long serialVersionUID = 1L;
+    
     private String message;
     private Object data;
+    
+    public ApiResposne() {
+    }
 
     public ApiResposne(String message, Object data) {
         this.message = message;
