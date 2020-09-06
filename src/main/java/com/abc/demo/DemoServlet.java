@@ -30,13 +30,11 @@ public class DemoServlet extends HttpServlet {
             return;
         }
 
-        String path = pathInfo.split("/")[1]; // e.g.: /employee
-
         ObjectMapper objectMapper = new ObjectMapper();
         String jsonString = "";
         PrintWriter writer = response.getWriter();
 
-        if ("employee".equalsIgnoreCase(path)) {
+        if ("/employee".equalsIgnoreCase(pathInfo)) {
             EmployeeDto employeeDto = new EmployeeDto(1L, "john", "john@abc.com", 28);
             ApiResposne apiResposne = new ApiResposne("success", employeeDto);
             jsonString = objectMapper.writeValueAsString(apiResposne);
