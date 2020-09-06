@@ -45,7 +45,6 @@ public class DemoServlet extends HttpServlet {
         }
 
         response.sendError(HttpServletResponse.SC_NOT_FOUND);
-        return;
     }
 
 }
