@@ -21,12 +21,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.StringUtils;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 public class DemoServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     
-    private static final ObjectMapper objectMapper = new ObjectMapper();
+    private final static int MAX_SIZE_5MB = 5 * 1024 * 1024;
     
     public DemoServlet() {
         super();
@@ -46,7 +44,7 @@ public class DemoServlet extends HttpServlet {
         if ("/upload".equalsIgnoreCase(pathInfo)) {
             FileItemFactory fileItemFactory = new DiskFileItemFactory();
             ServletFileUpload servletFileUpload = new ServletFileUpload(fileItemFactory);
-            servletFileUpload.setSizeMax(5 * 1024 * 1024); // 5MB
+            servletFileUpload.setSizeMax(MAX_SIZE_5MB); // 5MB
             
             List<FileItem> itemList = null;
             try {
