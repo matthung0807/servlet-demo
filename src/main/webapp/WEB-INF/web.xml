@@ -13,6 +13,6 @@
   </servlet>
   <servlet-mapping>
   	<servlet-name>DemoServlet</servlet-name>
-  	<url-pattern>/demo</url-pattern>
+  	<url-pattern>/demo/*</url-pattern>
   </servlet-mapping>
 </web-app>
